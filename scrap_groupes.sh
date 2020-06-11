@@ -16,3 +16,5 @@ curl -s http://www2.assemblee-nationale.fr/instances/embed/39462/GE/alpha/legisl
     res=$(curl -s $url | grep 'class="ajax"' | sed 's/<\/.*//' | sed 's/.*>//' | tr "\n" "," | sed 's/^Comptes/,Comptes/' | sed -r 's/(Agenda|Comptes rendus|Contributions des personnalités auditionnées)/1/g')
     echo "$line\",$membres,$res" | sed -r 's/(",[^,]*,)$/\1,,/' | sed -r 's/(",[^,]*,[^,]*,)$/\1,/' | sed -r 's/(",[^,]*,[^,]*,[^,]*,[^,]*),$/\1/'
   done >> liste-groupes.csv
+
+sed 's/^.*,//' liste-groupes.csv | sed 's/Contributions des personnalités auditionnées/Contributions externes/' > liste-groupes-2.csv
