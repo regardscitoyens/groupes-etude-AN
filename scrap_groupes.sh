@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Url;Nom;Membres;Agenda;Comptes-rendus;Contributions des personnalités auditionnées" > liste-groupes.csv
+echo "Url,Nom,Membres,Agenda,Comptes-rendus,Contributions des personnalités auditionnées" > liste-groupes.csv
 
 curl -s http://www2.assemblee-nationale.fr/instances/embed/39462/GE/alpha/legislature/15 |
   tr '\n' ' ' |
