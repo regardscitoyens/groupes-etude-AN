@@ -14,5 +14,5 @@ curl -s http://www2.assemblee-nationale.fr/instances/embed/39462/GE/alpha/legisl
     id=$(echo $url | awk -F '/' '{print $6}')
     membres=$(curl -s http://www2.assemblee-nationale.fr/instances/alpha/$id/2020-06-11/ajax/1/legislature/15 | grep Tous | sed 's/.*: //'| sed 's/<.*//')
     res=$(curl -s $url | grep 'class="ajax"' | sed 's/<\/.*//' | sed 's/.*>//' | tr "\n" "," | sed 's/^Comptes/,Comptes/' | sed -r 's/(Agenda|Comptes rendus|Contributions des personnalités auditionnées)/1/g')
-    echo "$line\",$membres,$res"
+    echo "$line\",$membres,$res" | sed -r 's/(",[^,]*,)$/\1,,/' | sed -r 's/(",[^,]*,[^,]*,)$/\1,/' | sed -r 's/(",[^,]*,[^,]*,[^,]*,[^,]*),$/\1/'
   done >> liste-groupes.csv
